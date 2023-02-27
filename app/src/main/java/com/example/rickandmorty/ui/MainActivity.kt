@@ -16,11 +16,17 @@ class MainActivity : AppCompatActivity() {
             homeViewModel.onCreate()
             homeViewModel.characterModel.observe(this, Observer {ch ->
                 binding.textVw.text = ch.toString()
-
+            
             })
-
+        
             binding.btn.setOnClickListener{
                 homeViewModel.onCreate()
             }
+
+        setList(this)
+    }
+
+    private fun setList(view: Any) {
+
     }
 }

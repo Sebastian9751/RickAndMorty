@@ -20,7 +20,7 @@ class HomeViewModel : ViewModel() {
 
             if (result != null) {
                 characterModel.postValue(result)
-                Log.i("hey", "${result.results.size}")
+                Log.i("hey", "${result.results.toList()}")
             } else {
                 Log.i("hey", "No se encontraron personajes")
             }
