@@ -1,9 +1,8 @@
 package com.example.rickandmorty
 
 import com.example.rickandmorty.data.models.Characters
-import com.example.rickandmorty.data.models.ResultsModel
 
-class Chprovide {
+class CharacterProvide {
     companion object {
         var ch: Characters? = null
     }

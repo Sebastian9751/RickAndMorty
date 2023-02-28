@@ -1,14 +1,10 @@
 package com.example.rickandmorty.domain
 
-import com.example.rickandmorty.data.ChRepository
+import com.example.rickandmorty.data.CharacterRepository
 import com.example.rickandmorty.data.models.Characters
-import com.example.rickandmorty.data.models.ResultsModel
 
-class GetChUseCase {
-
-
-    private val repository = ChRepository()
-
+class GetCharacterUseCase {
+    private val repository = CharacterRepository()
     suspend operator fun invoke(): Characters? {
         return repository.getAllCh()
     }

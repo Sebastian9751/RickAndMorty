@@ -11,10 +11,9 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.ui.home.adapter.HomeAdapter
 
 
-
 class HomeFragment : Fragment() {
 
-    private  val homeViewModel : HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,8 +27,8 @@ class HomeFragment : Fragment() {
         setList(view)
     }
 
-
     private fun setList(view: View) {
         homeViewModel.onCreate(HomeAdapter(), view, requireContext())
+
     }
 }
