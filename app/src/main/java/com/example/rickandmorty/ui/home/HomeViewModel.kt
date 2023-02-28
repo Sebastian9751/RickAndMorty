@@ -72,7 +72,7 @@ class HomeViewModel : ViewModel() {
             } catch (e: Exception) {
                 // Mostrar mensaje de error
                 Toast.makeText(
-                    context, "Error al cargar los datos: ${e.message}", Toast.LENGTH_SHORT
+                    context, "Error_al cargar los datos: ${e.message}", Toast.LENGTH_SHORT
                 ).show()
                 isLoading.postValue(false)
             }
