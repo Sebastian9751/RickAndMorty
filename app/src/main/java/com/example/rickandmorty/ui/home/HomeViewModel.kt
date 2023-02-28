@@ -61,7 +61,7 @@ class HomeViewModel : ViewModel() {
 
                 if (result != null) {
                     adapter.setList(result.results.map {
-                        ResultsModel(it.id, it.name, it.status, it.species)
+                        ResultsModel(it.id, it.name, it.status, it.species, it.image)
                     }
                     )
                     adapter.notifyDataSetChanged()

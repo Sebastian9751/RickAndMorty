@@ -74,5 +74,7 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.0"
     //Swipe refresh
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    //CardView
+    implementation("androidx.cardview:cardview:1.0.0")
 
 }
