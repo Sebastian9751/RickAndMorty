@@ -27,8 +27,8 @@ class HomeFragment : Fragment() {
         setList(view)
     }
 
-
     private fun setList(view: View) {
         homeViewModel.onCreate(HomeAdapter(), view, requireContext())
+
     }
 }

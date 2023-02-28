@@ -24,12 +24,22 @@ class HomeViewModel : ViewModel() {
         val itemDecorator = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         setRecyclerView(layoutManager, itemDecorator, recyclerView, adapter, context)
+        setDetail(adapter, view)
 
     }
 
     val isLoading = MutableLiveData<Boolean>()
 
+    private fun setDetail(adapter: HomeAdapter, view: View){
+        adapter.setOnClickl(object  :HomeAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                val selectedObject = adapter.getItem(position)// obtener objeto seleccionado
+                val name = selectedObject.id // obtener el nombre del objeto
+                Toast.makeText(view.context, "hello $name", Toast.LENGTH_SHORT).show()
+            }
 
+        })
+    }
     @SuppressLint("NotifyDataSetChanged")
     private fun setRecyclerView(
         layoutManager: LinearLayoutManager,
