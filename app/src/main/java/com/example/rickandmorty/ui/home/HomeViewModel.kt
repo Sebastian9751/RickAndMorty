@@ -2,8 +2,10 @@ package com.example.rickandmorty.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,6 +20,14 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
     val getCharacterUseCase = GetCharacterUseCase()
+    private val _selectedObject = MutableLiveData<ResultsModel>()
+    val selectedObject: LiveData<ResultsModel> = _selectedObject
+
+    fun onItemSelected(resultsModel: ResultsModel) {
+        _selectedObject.postValue(resultsModel)
+        val name = selectedObject.value
+        Log.i("HomeAdapt","data $name" )
+    }
 
     fun onCreate(adapter: HomeAdapter, view: View, context: Context) {
         val layoutManager = LinearLayoutManager(context)
@@ -30,16 +40,27 @@ class HomeViewModel : ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>()
 
-    private fun setDetail(adapter: HomeAdapter, view: View){
-        adapter.setOnClickl(object  :HomeAdapter.onItemClickListener{
+    private fun setDetail(adapter: HomeAdapter, view: View) {
+        adapter.setOnClickl(object : HomeAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
                 val selectedObject = adapter.getItem(position)// obtener objeto seleccionado
-                val name = selectedObject.id // obtener el nombre del objeto
-                Toast.makeText(view.context, "hello $name", Toast.LENGTH_SHORT).show()
+                val name = selectedObject.name // obtener el nombre del objeto
+                Toast.makeText(view.context, "   name: $name ", Toast.LENGTH_SHORT).show()
+                onItemSelected(
+                    ResultsModel(
+                        selectedObject.id,
+                        selectedObject.name,
+                        selectedObject.status,
+                        selectedObject.species,
+                        selectedObject.image
+                    )
+                )
+
             }
 
         })
     }
+
     @SuppressLint("NotifyDataSetChanged")
     private fun setRecyclerView(
         layoutManager: LinearLayoutManager,

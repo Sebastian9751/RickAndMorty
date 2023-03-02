@@ -5,6 +5,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface CharacterApiClient {
-    @GET("character")
+    @GET("character/")
     suspend fun getAllCh(): Response<Characters>
 }
