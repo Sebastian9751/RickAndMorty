@@ -1,4 +1,5 @@
-package com.example.rickandmorty.ui.home
+
+/*package com.example.rickandmorty.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Context
