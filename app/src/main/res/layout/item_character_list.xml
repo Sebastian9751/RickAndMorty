@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/textViewUrl"
+            android:id="@+id/imgViewUrl"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewUrl"
+            app:layout_constraintTop_toBottomOf="@id/imgViewUrl"
             app:layout_constraintVertical_bias="1.0"
             tools:text="hola" />
 
