@@ -23,4 +23,9 @@
             android:name="ResultModel"
             app:argType="com.example.rickandmorty.data.models.ResultsModel" />
     </fragment>
+    <fragment
+        android:id="@+id/characterAliveFragment"
+        android:name="com.example.rickandmorty.ui.characterAlive.CharacterAliveFragment"
+        android:label="fragment_character_alive"
+        tools:layout="@layout/fragment_character_alive" />
 </navigation>
