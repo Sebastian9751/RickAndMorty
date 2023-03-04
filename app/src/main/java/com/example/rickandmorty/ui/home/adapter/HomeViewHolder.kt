@@ -11,6 +11,7 @@ class HomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun render(character:ResultsModel, onClickListener :(ResultsModel) ->Unit) {
         binding.textViewNameCharacter.text = character.name
 
+        Glide.with(itemView.context).load(character.image).into(binding.imgViewUrl)
 
         itemView.setOnClickListener {
             onClickListener(character)

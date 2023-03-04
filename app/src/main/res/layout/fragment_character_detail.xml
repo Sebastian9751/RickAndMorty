@@ -1,15 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.detail.CharacterDetailFragment">
+    android:layout_margin="10dp"
+    app:cardCornerRadius="@dimen/card_view_corner_radius">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textName"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:background="@color/black">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/imgViewUrl"
+            android:layout_width="320dp"
+            android:layout_height="346dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/textName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:background="@color/purple_500" />
+
+        <TextView
+            android:id="@+id/textName"
+            style="@style/style_item_character"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/textStatus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgViewUrl"
+            tools:text="nameCharacter" />
+
+        <TextView
+            android:id="@+id/textStatus"
+            style="@style/style_item_character"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/textSpecies"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.108"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textName"
+            tools:text="Status" />
+
+        <TextView
+            android:id="@+id/textSpecies"
+            style="@style/style_item_character"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="14dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/textGder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.111"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textStatus"
+            tools:text="Species" />
+
+        <TextView
+            android:id="@+id/textGder"
+            style="@style/style_item_character"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="163dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.141"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textSpecies"
+            tools:text="Genderaaaaaa" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
