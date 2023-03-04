@@ -28,4 +28,9 @@
         android:name="com.example.rickandmorty.ui.characterAlive.CharacterAliveFragment"
         android:label="fragment_character_alive"
         tools:layout="@layout/fragment_character_alive" />
+    <fragment
+        android:id="@+id/characterDeadFragment"
+        android:name="com.example.rickandmorty.ui.home.CharacterDead.CharacterDeadFragment"
+        android:label="fragment_character_dead"
+        tools:layout="@layout/fragment_character_dead" />
 </navigation>
