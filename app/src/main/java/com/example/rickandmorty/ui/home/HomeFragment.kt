@@ -7,11 +7,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rickandmorty.R
 import com.example.rickandmorty.data.models.ResultsModel
 import com.example.rickandmorty.databinding.FragmentHomeBinding
 import com.example.rickandmorty.ui.home.adapter.HomeAdapter
-
 
 
 class HomeFragment : Fragment() {
@@ -45,7 +43,7 @@ class HomeFragment : Fragment() {
 
     private fun onItemSelect(characterss: ResultsModel) {
         Toast.makeText(requireContext(), characterss.name, Toast.LENGTH_SHORT).show()
-
-        findNavController().navigate(R.id.action_homeFragment_to_characterDetailFragment)
+        val direction = HomeFragmentDirections.actionHomeFragmentToCharacterDetailFragment(characterss)
+        findNavController().navigate(direction)
     }
 }
