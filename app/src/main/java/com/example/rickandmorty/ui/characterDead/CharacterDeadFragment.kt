@@ -1,4 +1,4 @@
-package com.example.rickandmorty.ui.home.CharacterDead
+package com.example.rickandmorty.ui.characterDead
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

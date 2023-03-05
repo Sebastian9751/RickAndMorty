@@ -10,6 +10,7 @@ class HomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val binding = ItemCharacterListBinding.bind(view)
     fun render(character:ResultsModel, onClickListener :(ResultsModel) ->Unit) {
         binding.textViewNameCharacter.text = character.name
+        binding.textViewSpecies.text = character.species
 
         Glide.with(itemView.context).load(character.image).into(binding.imgViewUrl)
 
