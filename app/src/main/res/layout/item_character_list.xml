@@ -19,33 +19,37 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:background="@drawable/my_gradient"/>
+            tools:background="@drawable/my_gradient" />
 
         <TextView
             android:id="@+id/textViewNameCharacter"
             style="@style/style_item_character"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="16dp"
             android:textAlignment="center"
-            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintBottom_toTopOf="@id/IconText"
             app:layout_constraintStart_toEndOf="@id/imgViewUrl"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="hola"
-            tools:textColor="@color/black"
+            tools:textColor="@color/white"
             tools:textSize="20sp" />
+
         <TextView
-            android:id="@+id/textViewSpecies"
-            style="@style/style_item_character"
+            android:id="@+id/IconText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:textAlignment="center"
-            android:layout_margin="@dimen/card_view_corner_radius"
-            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/imgViewUrl"
             app:layout_constraintTop_toBottomOf="@id/textViewNameCharacter"
-            tools:text="hola"
-            tools:textColor="@color/black"
+            tools:text="icon"
+            tools:textColor="@color/white"
             tools:textSize="20sp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

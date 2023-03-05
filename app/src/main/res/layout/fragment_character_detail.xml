@@ -9,12 +9,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:background="@color/black">
+        android:background="@color/black">
 
         <ImageView
             android:id="@+id/imgViewUrl"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="32dp"
             android:scaleType="centerCrop"
@@ -34,7 +34,6 @@
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@id/textStatus"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgViewUrl"
             tools:text="nameCharacter" />
