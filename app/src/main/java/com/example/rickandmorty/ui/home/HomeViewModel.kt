@@ -6,5 +6,5 @@ import com.example.rickandmorty.data.models.Characters
 
 class HomeViewModel : ViewModel() {
      private val repository = CharacterRepository()
-    suspend fun fecthing(): Characters? = repository.getAllCh()
+    suspend fun fecthingCharacters(): Characters? = repository.getAllCh()
 }

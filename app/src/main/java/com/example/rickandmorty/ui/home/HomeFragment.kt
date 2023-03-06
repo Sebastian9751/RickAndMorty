@@ -10,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.example.rickandmorty.data.models.ResultsModel
 import com.example.rickandmorty.databinding.FragmentHomeBinding
 import com.example.rickandmorty.ui.home.HomeViewModel
@@ -41,7 +40,7 @@ class HomeFragment : Fragment() {
 
     private fun setRecyclerView() {
         homeViewModel.viewModelScope.launch {
-            val response = homeViewModel.fecthing()
+            val response = homeViewModel.fecthingCharacters()
             response?.results?.let { results ->
                 val adapter = HomeAdapter(results) { ch -> onItemSelect(ch) }
                 val manager = LinearLayoutManager(requireContext())
@@ -57,7 +56,6 @@ class HomeFragment : Fragment() {
 
 
     private fun onItemSelect(characterss: ResultsModel) {
-        Toast.makeText(requireContext(), characterss.name + characterss.gender, Toast.LENGTH_SHORT).show()
         val direction =
             HomeFragmentDirections.actionHomeFragmentToCharacterDetailFragment(characterss)
         findNavController().navigate(direction)
