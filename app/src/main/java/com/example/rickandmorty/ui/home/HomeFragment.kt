@@ -37,19 +37,8 @@ class HomeFragment : Fragment() {
         setRecyclerView()
     }
 
-    private fun setRecyclerView() {/*
-        homeViewModel.viewModelScope.launch {
-            val response = homeViewModel.fecthingCharacters()
-            response?.results?.let { results ->
-                val adapter = HomeAdapter(results) { ch -> onItemSelect(ch) }
-                val manager = LinearLayoutManager(requireContext())
-                val decoration = DividerItemDecoration(requireContext(), manager.orientation)
-                binding.recyclerView.layoutManager = manager
-                binding.recyclerView.adapter = adapter
-                binding.recyclerView.addItemDecoration(decoration)
-            }
-            Log.i("hellooRk", "$response")
-        }*/
+    private fun setRecyclerView() {
+
         homeViewModel.viewModelScope.launch {
             val response = result.invoke()
             response?.results?.let { results ->
