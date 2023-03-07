@@ -7,4 +7,7 @@ import retrofit2.http.GET
 interface CharacterApiClient {
     @GET("character/")
     suspend fun getAllCh(): Response<Characters>
+
+    @GET("character/?status=alive")
+    suspend fun getAliveCh(): Response<Characters>
 }
