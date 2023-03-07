@@ -22,9 +22,8 @@ class HomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private fun setIcon(icon: String) {
         val ic = when(icon) {
-            "Alien" -> itemView.context.getString(R.string.alien_icon)
-            "Human" -> itemView.context.getString(R.string.human_icon)
-            "Human" -> itemView.context.getString(R.string.human_icon)
+            itemView.context.getString(R.string.alien_text) -> itemView.context.getString(R.string.alien_icon)
+            itemView.context.getString(R.string.human_text) -> itemView.context.getString(R.string.human_icon)
             else -> itemView.context.getString(R.string.unknown_icon)
         }
         binding.IconText.text = ic

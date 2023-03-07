@@ -12,12 +12,8 @@
         android:background="@color/black">
 
         <ImageView
+            style="@style/style_item_character_img"
             android:id="@+id/imgViewUrl"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="32dp"
-            android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/textName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,27 +36,21 @@
 
         <TextView
             android:id="@+id/textStatus"
-            style="@style/style_item_character"
+            style="@style/style_item_character_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="15dp"
-            android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/textSpecies"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.108"
+            app:layout_constraintHorizontal_bias="0.111"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textName"
             tools:text="Status" />
 
         <TextView
             android:id="@+id/textSpecies"
-            style="@style/style_item_character"
+            style="@style/style_item_character_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="14dp"
-            android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/textGder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.111"
@@ -70,18 +60,15 @@
 
         <TextView
             android:id="@+id/textGder"
-            style="@style/style_item_character"
+            style="@style/style_item_character_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="163dp"
-            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.111"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textSpecies"
-            tools:text="Genderaaaaaa" />
+            tools:text="Gender" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
