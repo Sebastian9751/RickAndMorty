@@ -5,4 +5,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="alien_text">Alien</string>
+    <string name="human_text">Human</string>
 </resources>
