@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmorty.data.models.ResultsModel
 import com.example.rickandmorty.databinding.FragmentHomeBinding
 import com.example.rickandmorty.domain.GetCharacterUseCase
+import com.example.rickandmorty.ui.home.HomeViewModel
 import com.example.rickandmorty.ui.home.adapter.HomeAdapter
 import kotlinx.coroutines.launch
 
@@ -22,8 +24,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val result = GetCharacterUseCase()
     private val characterList = mutableListOf<ResultsModel>()
-    private var currentVisiblePosition =
-        0 // variable para guardar la posición actual del reciclador
+    private var currentVisiblePosition = 0
+    private lateinit var  viewModel : HomeViewModel
     private var PAGUE = 1
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,10 +34,13 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = HomeViewModel()
         binding.swipe.isEnabled = false
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -49,23 +54,25 @@ class HomeFragment : Fragment() {
                 if (lastVisibleItemPosition == totalItemCount - 1) {
                     PAGUE += 1
                     setRecyclerView()
+                    binding.recyclerView.scrollToPosition(viewModel.currentVisiblePosition)
                 }
             }
         })
+
+        (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPosition(viewModel.currentVisiblePosition)
     }
 
     private fun setRecyclerView() {
         lifecycleScope.launch {
             binding.swipe.isRefreshing = true
-            // guardar la posición actual del reciclador
-            currentVisiblePosition = (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+            // guardar la posición actual del reciclador en el ViewModel
+            viewModel.currentVisiblePosition = (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
             val response = result.invoke(PAGUE)
             response?.results?.let { results ->
                 characterList.addAll(results)
                 val adapter = HomeAdapter(characterList) { ch -> onItemSelect(ch) }
                 binding.recyclerView.adapter = adapter
-                // restaurar la posición del reciclador después de actualizar el conjunto de datos
-                binding.recyclerView.scrollToPosition(currentVisiblePosition)
+                // restaurar la posición del reciclador desde el ViewModel después de actualizar el conjunto de datos
             }
             binding.swipe.isRefreshing = false
             Log.i("hellooRk", "$response")
@@ -78,3 +85,5 @@ class HomeFragment : Fragment() {
         findNavController().navigate(direction)
     }
 }
+
+
