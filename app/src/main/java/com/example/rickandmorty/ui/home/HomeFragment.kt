@@ -71,7 +71,6 @@ class HomeFragment : Fragment() {
             Log.i("hellooRk", "$response")
         }
     }
-    
 
     private fun onItemSelect(characterss: ResultsModel) {
         val direction =
