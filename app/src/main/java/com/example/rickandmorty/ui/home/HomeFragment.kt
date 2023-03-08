@@ -1,3 +1,4 @@
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,6 +27,8 @@ class HomeFragment : Fragment() {
     private val characterList = mutableListOf<ResultsModel>()
     private lateinit var  viewModel : HomeViewModel
     private var PAGUE = 1
+    private lateinit var adapter: HomeAdapter // initialize adapter outside setRecyclerView
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,7 +36,6 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +44,13 @@ class HomeFragment : Fragment() {
         binding.swipe.isEnabled = false
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+
+        // inicializar el adapter una sola vez
+        adapter = HomeAdapter(characterList) { ch -> onItemSelect(ch) }
+        binding.recyclerView.adapter = adapter
+
         setRecyclerView()
+
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -52,14 +60,12 @@ class HomeFragment : Fragment() {
                 if (lastVisibleItemPosition == totalItemCount - 1) {
                     PAGUE += 1
                     setRecyclerView()
-                    binding.recyclerView.scrollToPosition(viewModel.currentVisiblePosition)
                 }
             }
         })
-
-
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setRecyclerView() {
         lifecycleScope.launch {
             binding.swipe.isRefreshing = true
@@ -69,13 +75,8 @@ class HomeFragment : Fragment() {
             val response = result.invoke(PAGUE)
             response?.results?.let { results ->
                 characterList.addAll(results)
-                val adapter = HomeAdapter(characterList) { ch -> onItemSelect(ch) }
-                binding.recyclerView.adapter = adapter
-                // restaurar la posición del reciclador desde el ViewModel después de actualizar el conjunto de datos
+                adapter.notifyDataSetChanged() // update adapter with new data
             }
-
-            binding.recyclerView.scrollToPosition(viewModel.currentVisiblePosition)
-
             binding.swipe.isRefreshing = false
             Log.i("hellooRk", "$response")
         }
@@ -87,5 +88,6 @@ class HomeFragment : Fragment() {
         findNavController().navigate(direction)
     }
 }
+
 
 
