@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
 
     private fun setRecyclerView() {
         lifecycleScope.launch {
-            val response = result.invoke()
+            val response = result.invoke(1)
             response?.results?.let { results ->
                 val adapter = HomeAdapter(results) { ch -> onItemSelect(ch) }
                 binding.recyclerView.adapter = adapter
