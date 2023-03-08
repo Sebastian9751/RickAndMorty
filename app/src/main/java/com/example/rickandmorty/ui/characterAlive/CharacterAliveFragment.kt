@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -22,7 +23,6 @@ class CharacterAliveFragment : Fragment() {
 
     private var _binding: FragmentCharacterAliveBinding? = null
     private val binding get() = _binding!!
-    private val chAliveViewModel: ChAliveViewModel by viewModels()
     private val result = GetAliveCharacterUseCase()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,23 +36,25 @@ class CharacterAliveFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipe.isEnabled = false
+        binding.swipe.isRefreshing = true
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         setRecyclerView()
     }
 
     private fun setRecyclerView() {
-        chAliveViewModel.viewModelScope.launch {
+        lifecycleScope.launch {
             val response = result.invoke()
             response?.results?.let { results ->
                 val adapter = HomeAdapter(results) { ch -> onItemSelect(ch) }
-                val manager = LinearLayoutManager(requireContext())
-                val decoration = DividerItemDecoration(requireContext(), manager.orientation)
-                binding.recyclerView.layoutManager = manager
                 binding.recyclerView.adapter = adapter
-                binding.recyclerView.addItemDecoration(decoration)
             }
+            binding.swipe.isRefreshing = false
             Log.i("hellAlive", "$response")
         }
     }
+
 
     private fun onItemSelect(characterModel: ResultsModel) {
         val direction = CharacterAliveFragmentDirections.actionCharacterAliveFragmentToCharacterDetailFragment(characterModel)

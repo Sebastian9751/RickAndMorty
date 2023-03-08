@@ -31,26 +31,25 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipe.isEnabled = false
+        binding.swipe.isRefreshing = true
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         setRecyclerView()
     }
 
     private fun setRecyclerView() {
-        binding.swipe.isEnabled =false
         lifecycleScope.launch {
-            binding.swipe.isRefreshing =true
             val response = result.invoke()
             response?.results?.let { results ->
                 val adapter = HomeAdapter(results) { ch -> onItemSelect(ch) }
-                val manager = LinearLayoutManager(requireContext())
-                val decoration = DividerItemDecoration(requireContext(), manager.orientation)
-                binding.recyclerView.layoutManager = manager
                 binding.recyclerView.adapter = adapter
-                binding.recyclerView.addItemDecoration(decoration)
             }
-            binding.swipe.isRefreshing =false
+            binding.swipe.isRefreshing = false
             Log.i("hellooRk", "$response")
         }
     }
+
 
 
 
