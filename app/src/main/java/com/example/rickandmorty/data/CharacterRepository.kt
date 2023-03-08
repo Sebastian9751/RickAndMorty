@@ -6,7 +6,7 @@ import com.example.rickandmorty.data.network.CharacterService
 class CharacterRepository {
 
     private val api = CharacterService()
-    suspend fun getAllCh(): Characters? = api.getCh()
+    suspend fun getAllCh(page:Int): Characters? = api.getCh(page)
 
     suspend fun getAliveCh(): Characters? = api.getAliveCh()
     suspend fun getDeadCh(): Characters? = api.getDeadCh()
