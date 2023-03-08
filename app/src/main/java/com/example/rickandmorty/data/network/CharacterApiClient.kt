@@ -10,4 +10,7 @@ interface CharacterApiClient {
 
     @GET("character/?status=alive")
     suspend fun getAliveCh(): Response<Characters>
+
+    @GET("character/?status=dead")
+    suspend fun getDeadCh(): Response<Characters>
 }
