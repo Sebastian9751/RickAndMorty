@@ -5,17 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rickandmorty.data.models.ResultsModel
 import com.example.rickandmorty.databinding.FragmentCharacterAliveBinding
 import com.example.rickandmorty.domain.GetAliveCharacterUseCase
-import com.example.rickandmorty.ui.home.adapter.HomeAdapter
+import com.example.rickandmorty.ui.characterAlive.adapt.ChAliveAdapter
 import kotlinx.coroutines.launch
 
 
@@ -47,7 +46,7 @@ class CharacterAliveFragment : Fragment() {
         lifecycleScope.launch {
             val response = result.invoke()
             response?.results?.let { results ->
-                val adapter = HomeAdapter(results) { ch -> onItemSelect(ch) }
+                val adapter = ChAliveAdapter(results) { ch -> onItemSelect(ch) }
                 binding.recyclerView.adapter = adapter
             }
             binding.swipe.isRefreshing = false
