@@ -4,15 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rickandmorty.data.models.ResultsModel
 import com.example.rickandmorty.databinding.FragmentHomeBinding
 import com.example.rickandmorty.domain.GetCharacterUseCase
-import com.example.rickandmorty.ui.home.HomeViewModel
 import com.example.rickandmorty.ui.home.adapter.HomeAdapter
 import kotlinx.coroutines.launch
 
@@ -21,7 +19,6 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val homeViewModel: HomeViewModel by viewModels()
     private val result = GetCharacterUseCase()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,8 +35,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-
-        homeViewModel.viewModelScope.launch {
+        binding.swipe.isEnabled =false
+        lifecycleScope.launch {
+            binding.swipe.isRefreshing =true
             val response = result.invoke()
             response?.results?.let { results ->
                 val adapter = HomeAdapter(results) { ch -> onItemSelect(ch) }
@@ -49,6 +47,7 @@ class HomeFragment : Fragment() {
                 binding.recyclerView.adapter = adapter
                 binding.recyclerView.addItemDecoration(decoration)
             }
+            binding.swipe.isRefreshing =false
             Log.i("hellooRk", "$response")
         }
     }
