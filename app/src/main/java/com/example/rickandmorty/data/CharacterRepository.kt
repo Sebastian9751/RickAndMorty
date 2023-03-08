@@ -9,5 +9,7 @@ class CharacterRepository {
     suspend fun getAllCh(page: Int): Characters? = api.getCh(page)
 
     suspend fun getAliveCh(): Characters? = api.getAliveCh()
+    suspend fun getDeadCh(): Characters? = api.getDeadCh()
+
 
 }

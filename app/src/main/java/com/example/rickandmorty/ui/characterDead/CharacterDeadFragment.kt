@@ -1,60 +1,71 @@
 package com.example.rickandmorty.ui.characterDead
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.rickandmorty.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.rickandmorty.data.models.ResultsModel
+import com.example.rickandmorty.databinding.FragmentCharacterDeadBinding
+import com.example.rickandmorty.domain.GetDeadCharacterUseCase
+import com.example.rickandmorty.ui.characterDead.adapter.ChDeadAdapter
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CharacterDeadFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CharacterDeadFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentCharacterDeadBinding? = null
+    private val binding get() = _binding!!
+    private val result = GetDeadCharacterUseCase()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_character_dead, container, false)
+        _binding = FragmentCharacterDeadBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CharacterDeadFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CharacterDeadFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.swipe.isEnabled = false
+        binding.swipe.isRefreshing = true
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                LinearLayoutManager.VERTICAL
+            )
+        )
+        setRecyclerView()
     }
+
+    private fun setRecyclerView() {
+        lifecycleScope.launch {
+            val response = result.invoke()
+            response?.results?.let { results ->
+                val adapter = ChDeadAdapter(results) { ch -> onItemSelect(ch) }
+                binding.recyclerView.adapter = adapter
+            }
+            binding.swipe.isRefreshing = false
+            Log.i("hellooDead", "$response")
+        }
+    }
+
+
+    private fun onItemSelect(characterss: ResultsModel) {
+        val direction =
+            CharacterDeadFragmentDirections.actionCharacterDeadFragmentToCharacterDetailFragment(
+                characterss
+            )
+        findNavController().navigate(direction)
+    }
+
+
 }
