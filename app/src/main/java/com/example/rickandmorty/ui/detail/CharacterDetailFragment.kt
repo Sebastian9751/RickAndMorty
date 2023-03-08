@@ -29,8 +29,6 @@ class CharacterDetailFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         binding.textName.text = args.resultModel.name
         binding.textStatus.text = "• " + args.resultModel.status
         binding.textSpecies.text = "• " + args.resultModel.species
@@ -44,5 +42,4 @@ class CharacterDetailFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
