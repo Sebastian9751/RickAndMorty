@@ -1,7 +1,9 @@
-package com.example.rickandmorty.ui.characterAlive.Adapter
+package com.example.rickandmorty.ui.characterAlive.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rickandmorty.R
 import com.example.rickandmorty.data.models.ResultsModel
 
 class ChAliveAdapter (
@@ -9,7 +11,8 @@ class ChAliveAdapter (
     private val onClickListener: (ResultsModel) -> Unit
 ) : RecyclerView.Adapter<ChAliveViewHolder>()  {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChAliveViewHolder {
-        TODO("Not yet implemented")
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return ChAliveViewHolder(layoutInflater.inflate(R.layout.item_ch_alive_list, parent, false))
     }
 
     override fun getItemCount(): Int = chAliveList.size
