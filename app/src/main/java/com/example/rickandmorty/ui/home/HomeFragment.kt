@@ -24,7 +24,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val result = GetCharacterUseCase()
     private val characterList = mutableListOf<ResultsModel>()
-    private var currentVisiblePosition = 0
     private lateinit var  viewModel : HomeViewModel
     private var PAGUE = 1
     override fun onCreateView(
@@ -38,8 +37,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         viewModel = HomeViewModel()
         binding.swipe.isEnabled = false
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -59,14 +57,15 @@ class HomeFragment : Fragment() {
             }
         })
 
-        (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPosition(viewModel.currentVisiblePosition)
+
     }
 
     private fun setRecyclerView() {
         lifecycleScope.launch {
             binding.swipe.isRefreshing = true
             // guardar la posición actual del reciclador en el ViewModel
-            viewModel.currentVisiblePosition = (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+            viewModel.currentVisiblePosition =
+                (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
             val response = result.invoke(PAGUE)
             response?.results?.let { results ->
                 characterList.addAll(results)
@@ -74,6 +73,9 @@ class HomeFragment : Fragment() {
                 binding.recyclerView.adapter = adapter
                 // restaurar la posición del reciclador desde el ViewModel después de actualizar el conjunto de datos
             }
+
+            binding.recyclerView.scrollToPosition(viewModel.currentVisiblePosition)
+
             binding.swipe.isRefreshing = false
             Log.i("hellooRk", "$response")
         }
