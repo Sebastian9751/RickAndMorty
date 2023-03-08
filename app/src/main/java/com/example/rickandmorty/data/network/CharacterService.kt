@@ -6,8 +6,8 @@ import com.example.rickandmorty.data.models.Characters
 
 class CharacterService {
     private val rtf = RetrofitHelper.getRetrofit()
-    suspend fun getCh(): Characters? {
-        val res = rtf.create(CharacterApiClient::class.java).getAllCh()
+    suspend fun getCh(page:Int): Characters? {
+        val res = rtf.create(CharacterApiClient::class.java).getAllCh(page)
         return res.body()
     }
 
