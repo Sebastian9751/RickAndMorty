@@ -2,9 +2,9 @@
     <string name="app_name">RickAndMorty</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">All</string>
+    <string name="title_dashboard">Alive</string>
+    <string name="title_notifications">Dead</string>
     <string name="alien_text">Alien</string>
     <string name="human_text">Human</string>
 </resources>
