@@ -8,8 +8,8 @@ class CharacterRepository {
     private val api = CharacterService()
     suspend fun getAllCh(page:Int): Characters? = api.getCh(page)
 
-    suspend fun getAliveCh(): Characters? = api.getAliveCh()
-    suspend fun getDeadCh(): Characters? = api.getDeadCh()
+    suspend fun getAliveCh(page: Int): Characters? = api.getAliveCh(page)
+    suspend fun getDeadCh(page: Int): Characters? = api.getDeadCh(page)
 
 
 }

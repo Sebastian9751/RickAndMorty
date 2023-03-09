@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
     private val characterList = mutableListOf<ResultsModel>()
     private lateinit var  viewModel : HomeViewModel
     private var PAGUE = 1
-    private lateinit var adapter: HomeAdapter
+    private lateinit var adapter: HomeAdapter // initialize adapter outside setRecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,17 +65,17 @@ class HomeFragment : Fragment() {
         })
     }
 
-
     @SuppressLint("NotifyDataSetChanged")
     private fun setRecyclerView() {
         lifecycleScope.launch {
             binding.swipe.isRefreshing = true
+            // guardar la posición actual del reciclador en el ViewModel
             viewModel.currentVisiblePosition =
                 (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
             val response = result.invoke(PAGUE)
             response?.results?.let { results ->
                 characterList.addAll(results)
-                adapter.notifyDataSetChanged()
+                adapter.notifyDataSetChanged() // update adapter with new data
             }
             binding.swipe.isRefreshing = false
             Log.i("hellooRk", "$response")
