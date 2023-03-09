@@ -11,13 +11,13 @@ class CharacterService {
         return res.body()
     }
 
-    suspend fun getAliveCh(): Characters? {
-        val res = rtf.create(CharacterApiClient::class.java).getAliveCh()
+    suspend fun getAliveCh(page: Int): Characters? {
+        val res = rtf.create(CharacterApiClient::class.java).getAliveCh(page)
         return res.body()
     }
 
-    suspend fun getDeadCh(): Characters? {
-        val res = rtf.create(CharacterApiClient::class.java).getDeadCh()
+    suspend fun getDeadCh(page: Int): Characters? {
+        val res = rtf.create(CharacterApiClient::class.java).getDeadCh(page)
         return res.body()
     }
 }

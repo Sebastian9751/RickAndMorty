@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val result = GetCharacterUseCase()
     private val characterList = mutableListOf<ResultsModel>()
-    private lateinit var  viewModel : HomeViewModel
+    private lateinit var viewModel: HomeViewModel
     private var PAGUE = 1
     private lateinit var adapter: HomeAdapter // initialize adapter outside setRecyclerView
 
@@ -43,7 +43,12 @@ class HomeFragment : Fragment() {
         viewModel = HomeViewModel()
         binding.swipe.isEnabled = false
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                LinearLayoutManager.VERTICAL
+            )
+        )
 
         // inicializar el adapter una sola vez
         adapter = HomeAdapter(characterList) { ch -> onItemSelect(ch) }
@@ -70,8 +75,9 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             binding.swipe.isRefreshing = true
             // guardar la posición actual del reciclador en el ViewModel
-            viewModel.currentVisiblePosition =
-                (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+            viewModel.currentVisiblePosition = (
+                    binding.recyclerView.layoutManager as LinearLayoutManager
+                    ).findFirstCompletelyVisibleItemPosition()
             val response = result.invoke(PAGUE)
             response?.results?.let { results ->
                 characterList.addAll(results)

@@ -5,7 +5,7 @@ import com.example.rickandmorty.data.models.Characters
 
 class GetAliveCharacterUseCase {
     private val repository = CharacterRepository()
-    suspend operator fun invoke(): Characters? {
-        return repository.getAliveCh()
+    suspend operator fun invoke(page: Int): Characters? {
+        return repository.getAliveCh(page)
     }
 }

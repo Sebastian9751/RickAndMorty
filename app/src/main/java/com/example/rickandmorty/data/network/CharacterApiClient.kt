@@ -10,8 +10,8 @@ interface CharacterApiClient {
     suspend fun getAllCh(@Query("page") page: Int): Response<Characters>
 
     @GET("character/?status=alive")
-    suspend fun getAliveCh(): Response<Characters>
+    suspend fun getAliveCh(@Query("page") page: Int): Response<Characters>
 
     @GET("character/?status=dead")
-    suspend fun getDeadCh(): Response<Characters>
+    suspend fun getDeadCh(@Query("page") page: Int): Response<Characters>
 }
